@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.classes.models import Item, ItemNoId
 from app.database.db import connect
 
@@ -47,4 +47,5 @@ WHERE id=%s"""
   response = cursor.fetchall()
   conn.commit()
   conn.close()
+  if not response : raise HTTPException(status_code=404, detail='item not found')
   return [Item(id=id, name=name, description=description) for (id, name, description) in response][0]
