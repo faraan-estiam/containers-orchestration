@@ -28,4 +28,5 @@ CREATE TABLE IF NOT EXISTS items (
   description VARCHAR(255)
 )"""
   cursor.execute(querry)
+  conn.commit()
   conn.close()
